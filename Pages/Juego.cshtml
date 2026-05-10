@@ -1,0 +1,55 @@
+﻿@page
+@model pryLPWeb_PaginaPrototipo.Pages.JuegoModel
+@{
+    //configuracion del titulo de la pagina
+    ViewData["Title"] = "Terminal";
+}
+
+@* 
+    <div> divisor, con color blanco, 100vh para ocupar el 100% de la ventana, padding espacio interno de 20 px para que no quede el contenido en los bordes.
+*@
+<div style="background-color: #e6e6fa; height: 100vh; padding: 20px;">
+    @*
+        Flexbox para organizar elementos internos. justify-content: space-between distribuye los elementos con espacios entre ellos. font-family:  monospace una fuente tipo codigo. Italic cursiva. tamaño de letra 24px. Un espacio inferior de 20px. 
+    *@
+    <div style="display: flex; justify-content: space-between; font-family: monospace; font-style: italic; font-size: 24px; margin-bottom: 20px;">
+        @*
+            <span> titulo de la pagina, con la "Cuenta" y un enlace para cerrar sesion.
+        *@
+        <span>[DisTerminal] Cuenta</span> @* TODO: Crear otro enlace para Cuenta a otra pagina con toda la informacion de la misma mas puntaje acumulado de cuantas veces ah encontrado la ESTRELLA *@
+        <a href="/" style="text-decoration: none; color: black;">Cerrar Sesion</a>
+    </div>
+
+    @*
+        Divisor para la terminal, con anchura del 80% de la ventana, altura del 70% (view heigh) de la ventana, margen automatico centrado, padding interno de 20px, fuente tipo codigo, color verde, y overflow-y automatico por si acaso con desplazamiento vertical si es necesario.
+    *@
+    <div style="background-color: black; width: 80%; height: 70vh; margin: 0 auto; padding: 20px; font-family: monospace; color: #00FF00; overflow-y: auto;">
+
+        @*
+            si Mensaje temporal no es nulo.
+        *@
+        @if (TempData["Mensaje"] != null)
+        {
+            @*
+               Divisor para el mensaje temporal mostrado al ususario, se muestra el mensaje guardado en TempData con el color guardado en TempData["ColorMensaje"] o verde por defecto, con un margen inferior de 15px para separar el mensaje del siguiente contenido.
+            *@
+            <div style="margin-bottom: 15px; color: @(TempData["ColorMensaje"] ?? "#00FF00");">
+                > @TempData["Mensaje"]
+            </div>
+        }
+        
+        @*
+            formulario que envia datos por metodo POST y usa Flexbox para alinear los elementos en una sola fila.
+        *@
+        <form method="post" style="display: flex; align-items: center;">
+            @* 
+                muestra el jugador actual seguido de un prompt de terminal "~$". El nombre del jugador se obtiene del modelo (Model.JugadorActual) y se muestra con un margen derecho de 10px.
+            *@
+            <span style="margin-right: 10px;">@Model.JugadorActual:~$ </span>
+            @*
+                campo de entrada para escribir comandos del jugador, con autofocus, sin autocompletado, estilo consola (fondo transparente, texto verde, fuente monospace, sin bordes) y placeholder dinamico con el nombre del jugador con la instancia que se define en el controlador cs.
+            *@
+            <input type="text" name="Comando" autofocus autocomplete="off" style="background-color: transparent; color: #00FF00; border: none; outline: none; width: 80%; font-family: monospace; font-size: 16px;" placeholder="Ej: @Model.JugadorActual/Viajar/Docs" />
+        </form>
+    </div>
+</div>

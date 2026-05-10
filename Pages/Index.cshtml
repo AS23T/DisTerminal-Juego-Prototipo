@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Cuenta";
+}
+
+@* 
+    El contenedor "<div>" centra el contenido horizontal y vertical utilizando Flexbox. 
+    Tiene un fondo de color blanco (#e6e6fa) y ocupa el max. de altura de la ventana del navegador "100vh" (viewport height) = 100%. 
+    Organiza los elementos internos en una columna "flex-direction: column", alineandolos al centro. 
+*@
+<div class="text-center" style="background-color: #e6e6fa; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    @* Primer encabezado, que muestra el titulo.
+        Se le aplica una fuente de tipo monoespaciada, 
+        donde todos los caracteres ocupan el mismo ancho, y el texto aparece en cursiva (italic).
+    *@
+    <h1 style="font-family: monospace; font-style: italic;">[DisTerminal]</h1>
+
+    @* 
+        Segundo contenedor "<div>" con un fondo negro, un borde blanco de 2px, un ancho fijo de 400px y un relleno interno (padding) de 40px para separar el contenido de los bordes.
+            Dentro hay un formulario "<form>" que envia datos usando el metodo POST (enviar datos al servidor de forma oculta, empaquetando en el cuerpo de la solicitud HTTP, no en la URL).
+                Una etiqueta "<label>" que muestra el texto "Nombre de Usuario", con estilo en color blanco, fuente monoespaciada, y un margen inferior para separar del campo de entrada y ocupa toda la linea (display = block).
+                    El "<input>" es un campo de texto obligatorio (required), donde el usuario puede escribir y tiene fondo negro, texto blanco, borde blanco, ocupa todo el ancho disponible y usa una fuente monoespaciada.
+                    El "<button>" es de envio (submit), pero esta oculto (display: none), por lo que no es visible para el usuario y el formulario puede enviarse presionando la tecla "Enter".
+    *@
+    <div style="border: 2px solid white; background-color: black; padding: 40px; width: 400px;">
+        <form method="post">
+            <label style="color: white; font-family: monospace; margin-bottom: 20px; display: block;">Nombre de Usuario</label>
+            <input type="text" name="Username" required style="background-color: black; color: white; border: 1px solid white; width: 100%; padding: 5px; font-family: monospace;" />
+            <button type="submit" style="display: none;">Ingresar</button>
+        </form>
+    </div>
+    @*
+        Parrafo que muestra texto, esta posicionado de forma absoluta (position: absolute, lo que permite ubicarlo en una posicion específica dentro de su contenedor padre)
+        Se coloca a 10 pixeles desde la parte inferior (bottom: 10px) y 10 pixeles desde la izquierda (left: 10px), en la esquina inferior izquierda y usa una fuente monoespaciada.
+        El texto.
+    *@
+    <p style="position: absolute; bottom: 10px; left: 10px; font-family: monospace;">[©Derechos Reservados - 2026]</p>
+</div>
