@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36915.13 d17.14
+VisualStudioVersion = 17.14.36915.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pryLPWeb_PaginaPrototipo", "pryLPWeb_PaginaPrototipo.csproj", "{E9D284A8-8E10-44F5-8292-24958B14099F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pryLPWeb_DisTerminal", "pryLPWeb_DisTerminal.csproj", "{E9D284A8-8E10-44F5-8292-24958B14099F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

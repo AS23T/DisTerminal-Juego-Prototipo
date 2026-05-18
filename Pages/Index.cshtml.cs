@@ -1,19 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using pryLPWeb_PaginaPrototipo.Models;
+using pryLPWeb_DisTerminal.Models;
+using pryLPWeb_DisTerminal.Data;
+using System;
+using System.Linq;
 
-namespace pryLPWeb_PaginaPrototipo.Pages
+namespace pryLPWeb_DisTerminal.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly TerminalDbContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, TerminalDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        //al cargar la pagina, se eliminan las cookies anteriores para evitar conflictos
+        
         public void OnGet()
         {
             Response.Cookies.Delete("Jugador");
@@ -21,26 +26,38 @@ namespace pryLPWeb_PaginaPrototipo.Pages
             Response.Cookies.Delete("EstrellaEncontrada");
         }
 
-        //al enviar el formulario, se guarda el nombre del jugador y se genera la ubicacion de la ESTRELLA
+        
         public IActionResult OnPost(string Username)
         {
-            //si esto no es asi guardo el nombre del jugador en la cookie y genero la ubicacion de la estrellita, luego redirijo al juego
+
             if (!string.IsNullOrEmpty(Username))
             {
-                //guardar el usuario en la cookie
+
+                var jugadorDB = _context.Jugadores.FirstOrDefault(j => j.NombreUsuario == Username);
+                if (jugadorDB == null)
+                {
+                    jugadorDB = new Jugador
+                    {
+                        NombreUsuario = Username,
+                        FechaRegistro = DateTime.Now
+                    };
+                    _context.Jugadores.Add(jugadorDB);
+                    _context.SaveChanges();
+                }
+
                 Response.Cookies.Append("Jugador", Username);
 
-                //generar y inyectar la ubicacion de la estrellita al inicio
+                
                 var mecanica = new MecanicaJuego();
-                //la ubicacion de la estrella se guarda en una cookie para que el juego pueda acceder a ella
+                
                 Response.Cookies.Append("UbicacionEstrella", mecanica.EsconderEstrella());
-                //al iniciar el juego, la estrella no ha sido encontrada, por lo que se guarda ese estado en una cookie
+                
                 Response.Cookies.Append("EstrellaEncontrada", "false");
-                //redireccionar al juego
+                
                 return RedirectToPage("/Juego");
 
             }
-            //si esto es asi significa que el usuario no ingreso un nombre, entonces se recarga la pagina
+            
             return Page();
         }
     }
