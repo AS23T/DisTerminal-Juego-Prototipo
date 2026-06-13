@@ -1,20 +1,14 @@
-﻿@page
-@model pryLPWeb_DisTerminal.Pages.JuegoModel
-@{
+﻿@{
     ViewData["Title"] = "Terminal";
 }
 
 <div style="background-color: #e6e6fa; height: 100vh; padding: 20px;">
-
     <div style="display: flex; justify-content: space-between; font-family: monospace; font-style: italic; font-size: 24px; margin-bottom: 20px;">
-        <span>[DisTerminal] Cuenta - <a href="/Historial" style="color: #663399; text-decoration: underline;">Ver Records</a></span>
-        <a href="/" style="text-decoration: none; color: black;">Cerrar Sesion</a>
+        <span>[DisTerminal] Cuenta - <a href="/Historial/Index" style="color: #663399; text-decoration: underline;">Ver Records</a></span>
+        <a href="/Home/Index" style="text-decoration: none; color: black;">Cerrar Sesion</a>
     </div>
 
-    
     <div style="display: flex; width: 95%; margin: 0 auto; gap: 20px;">
-
-        
         <div style="background-color: black; flex: 4; height: 70vh; padding: 20px; font-family: monospace; color: #00FF00; overflow-y: auto;">
 
             @if (TempData["Mensaje"] != null)
@@ -24,36 +18,32 @@
                 </div>
             }
 
-            <form method="post" style="display: flex; align-items: center;">
-                <span style="margin-right: 10px;">@Model.JugadorActual:~$ </span>
-
-                
+            <form method="post" action="/Juego/Index" style="display: flex; align-items: center;">
+                <span style="margin-right: 10px;">@ViewBag.JugadorActual:~$ </span>
                 <input type="hidden" id="tiempoSegundosInput" name="TiempoSegundos" value="0" />
 
-                <input type="text" name="Comando" autofocus autocomplete="off" style="background-color: transparent; color: #00FF00; border: none; outline: none; width: 80%; font-family: monospace; font-size: 16px;" placeholder="Ej: @Model.JugadorActual/Viajar/Docs" />
+                <input type="text" name="Comando" autofocus autocomplete="off"
+                       style="background-color: transparent; color: #00FF00; border: none; outline: none; width: 80%; font-family: monospace; font-size: 16px;"
+                       placeholder="Ej: @ViewBag.JugadorActual/Viajar/Docs"
+                       oncopy="return false" onpaste="return false" oncut="return false"
+                       onkeydown="if((event.ctrlKey || event.metaKey) && (event.key === 'c' || event.key === 'v' || event.key === 'C' || event.key === 'V')) { event.preventDefault(); return false; }" />
             </form>
         </div>
 
-        
         <div style="background-color: black; flex: 1; height: 70vh; padding: 20px; border: 2px solid white; font-family: monospace; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box;">
             <h3 style="margin-top: 0; color: #FFFF00; text-align: center; font-size: 16px;">TIEMPO DE JUEGO</h3>
             <div id="timerDisplay" style="font-size: 38px; font-weight: bold; color: #00FF00; font-variant-numeric: tabular-nums; margin-top: 10px;">00:00</div>
         </div>
-
     </div>
 </div>
 
-
 <script>
-    
-    @if (ViewData["ReiniciarTimer"] is true)
+    @if (ViewBag.ReiniciarTimer is true)
     {
-            @:sessionStorage.removeItem("disTerminal_seconds");
+                @:sessionStorage.removeItem("disTerminal_seconds");
     }
 
-    
     let segundos = parseInt(sessionStorage.getItem("disTerminal_seconds")) || 0;
-
     const timerDisplay = document.getElementById("timerDisplay");
     const tiempoInput = document.getElementById("tiempoSegundosInput");
     const mensajeAlerta = document.getElementById("mensajeAlerta");
@@ -61,31 +51,18 @@
     function actualizarInterfazTimer() {
         let minutos = Math.floor(segundos / 60);
         let segundosRestantes = segundos % 60;
-
-        
-        timerDisplay.innerText =
-            (minutos < 10 ? "0" + minutos : minutos) + ":" +
-            (segundosRestantes < 10 ? "0" + segundosRestantes : segundosRestantes);
-
-        
-        if (tiempoInput) {
-            tiempoInput.value = segundos;
-        }
-
-        
+        timerDisplay.innerText = (minutos < 10 ? "0" + minutos : minutos) + ":" + (segundosRestantes < 10 ? "0" + segundosRestantes : segundosRestantes);
+        if (tiempoInput) { tiempoInput.value = segundos; }
         sessionStorage.setItem("disTerminal_seconds", segundos);
     }
 
-    
     const temporizadorIntervalo = setInterval(() => {
         segundos++;
         actualizarInterfazTimer();
     }, 1000);
 
-    
     actualizarInterfazTimer();
 
-    
     if (mensajeAlerta && mensajeAlerta.innerText.includes("¡GANASTE!")) {
         sessionStorage.removeItem("disTerminal_seconds");
     }

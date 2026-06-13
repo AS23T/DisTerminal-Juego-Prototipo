@@ -1,57 +1,54 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
 using pryLPWeb_DisTerminal.Data;
 using pryLPWeb_DisTerminal.Models;
-using System;
-using System.Linq;
 
-namespace pryLPWeb_DisTerminal.Pages
+namespace pryLPWeb_DisTerminal.Controllers
 {
-    public class JuegoModel : PageModel
+    public class JuegoController : Controller
     {
-        public string JugadorActual { get; set; } = "";
         private readonly MecanicaJuego _mecanica = new MecanicaJuego();
         private readonly TerminalDbContext _context;
 
-        public JuegoModel(TerminalDbContext context)
+        public JuegoController(TerminalDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
+        [HttpGet]
+        public IActionResult Index()
         {
-            JugadorActual = Request.Cookies["Jugador"] ?? "";
-
-            if (string.IsNullOrEmpty(JugadorActual))
+            string jugadorActual = Request.Cookies["Jugador"] ?? "";
+            if (string.IsNullOrEmpty(jugadorActual)) return RedirectToAction("Index", "Home");
             {
-                return RedirectToPage("/Index");
+
             }
 
-            ViewData["ReiniciarTimer"] = true;
-
-            return Page();
+            ViewBag.JugadorActual = jugadorActual;
+            ViewBag.ReiniciarTimer = true;
+            return View();
         }
 
-        
-        public IActionResult OnPost(string Comando, int TiempoSegundos)
+        [HttpPost]
+        public IActionResult Index(string Comando, int TiempoSegundos)
         {
-            JugadorActual = Request.Cookies["Jugador"] ?? "";
+            string jugadorActual = Request.Cookies["Jugador"] ?? "";
             string ubicacionSecreta = Request.Cookies["UbicacionEstrella"] ?? "";
             bool estrellaEncontrada = Request.Cookies["EstrellaEncontrada"] == "true";
 
-            if (string.IsNullOrEmpty(JugadorActual))
+            if (string.IsNullOrEmpty(jugadorActual)) return RedirectToAction("Index", "Home");
             {
-                return RedirectToPage("/Index");
+
             }
 
-            if (_mecanica.ValidarSintax(Comando, JugadorActual, out string destino))
+            ViewBag.JugadorActual = jugadorActual;
+
+            if (_mecanica.ValidarSintax(Comando, jugadorActual, out string destino))
             {
                 if (destino == "ESTRELLA")
                 {
                     if (estrellaEncontrada)
                     {
-                        
-                        var jugadorBD = _context.Jugadores.FirstOrDefault(j => j.NombreUsuario == JugadorActual);
+                        var jugadorBD = _context.Jugadores.FirstOrDefault(j => j.NombreUsuario == jugadorActual);
                         if (jugadorBD != null)
                         {
                             var nuevoRegistro = new RegistroTiempo
@@ -59,12 +56,11 @@ namespace pryLPWeb_DisTerminal.Pages
                                 JugadorId = jugadorBD.Id,
                                 FechaPartida = DateTime.Now,
                                 EncontroEstrella = true,
-                                TiempoJugado = TimeSpan.FromSeconds(TiempoSegundos) 
+                                TiempoJugado = TimeSpan.FromSeconds(TiempoSegundos)
                             };
                             _context.RegistrosTiempos.Add(nuevoRegistro);
                             _context.SaveChanges();
                         }
-                        
 
                         TempData["Mensaje"] = "¡GANASTE! Has obtenido la ESTRELLA. Generando nuevo lugar...";
                         TempData["ColorMensaje"] = "#FFFF00";
@@ -82,9 +78,8 @@ namespace pryLPWeb_DisTerminal.Pages
                 {
                     if (destino == ubicacionSecreta)
                     {
-                        TempData["Mensaje"] = $"¡DIRECTORIO {destino} ESCANEADO! Has encontrado la carpeta oculta, ingresa el comando {JugadorActual}/Viajar/ESTRELLA para ganar";
+                        TempData["Mensaje"] = $"¡DIRECTORIO {destino} ESCANEADO! Has encontrado la carpeta oculta, ingresa el comando {jugadorActual}/Viajar/ESTRELLA para ganar";
                         TempData["ColorMensaje"] = "#00FFFF";
-
                         Response.Cookies.Append("EstrellaEncontrada", "true");
                     }
                     else
@@ -100,11 +95,11 @@ namespace pryLPWeb_DisTerminal.Pages
             }
             else
             {
-                TempData["Mensaje"] = "Error de sintax, el comando debe ser: " + JugadorActual + "/Viajar/[Directorio]";
+                TempData["Mensaje"] = "Error de sintax, el comando debe ser: " + jugadorActual + "/Viajar/[Directorio]";
                 TempData["ColorMensaje"] = "#FF0000";
             }
 
-            return Page();
+            return View();
         }
     }
 }

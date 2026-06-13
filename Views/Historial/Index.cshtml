@@ -1,0 +1,72 @@
+﻿@model IList<pryLPWeb_DisTerminal.Models.RegistroTiempo>
+@{
+    ViewData["Title"] = "Historial de Partidas";
+}
+
+<div style="background-color: #e6e6fa; height: 100vh; padding: 20px;">
+    <div style="display: flex; justify-content: space-between; font-family: monospace; font-style: italic; font-size: 24px; margin-bottom: 20px;">
+        <span>[DisTerminal] Historial Global</span>
+
+        <div style="display:flex; align-items: center; gap: 20px;">
+
+            @if (ViewBag.JugadorActual == "admin963")
+            {
+                <form method="post" action="/Historial/LimpiarTodoHistorial" onsubmit="return confirm('ATENCIÓN ADMIN: ¿Estás seguro de borrar TODA la base de datos de récords?');">
+                    <button type="submit" style="background: #ff00ff; color: white; border: 2px solid white; padding: 5px 10px; cursor: pointer; font-family: monospace; font-weight: bold;">[MODO DIOS] NUKER</button>
+                </form>
+            }
+
+            <form method="post" action="/Historial/LimpiarMiHistorial" onsubmit="return confirm('¿Borrar todo tu historial?');">
+                <button type="submit" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; font-family: monospace;">LIMPIAR MI HISTORIAL</button>
+            </form>
+
+            <a href="/Juego/Index" style="text-decoration: none; color: black;">Volver a la Terminal</a>
+            <a href="/Home/Index" style="text-decoration: none; color: black;">Cerrar Sesion</a>
+        </div>
+    </div>
+
+    <div style="background-color: black; width: 80%; height: 70vh; margin: 0 auto; padding: 20px; font-family: monospace; color: #00FF00; overflow-y: auto; border: 2px solid white;">
+        <h2 style="text-align: center; color: #FFFF00;">=== TOP RECORDS DE TIEMPO ===</h2>
+
+        <table style="width: 100%; text-align: left; margin-top: 20px; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px dashed #00FF00;">
+                    <th style="padding: 10px;">JUGADOR</th>
+                    <th style="padding: 10px;">TIEMPO</th>
+                    <th style="padding: 10px;">FECHA</th>
+                    <th style="padding: 10px;">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr style="border-bottom: 1px dotted #004400;">
+                            <td style="padding: 10px;">@item.Jugador.NombreUsuario</td>
+                            <td style="padding: 10px;">@item.TiempoJugado.ToString(@"hh\:mm\:ss")</td>
+                            <td style="padding: 10px;">@item.FechaPartida.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td style="padding: 10px;">
+                                @if (ViewBag.JugadorActual == item.Jugador.NombreUsuario)
+                                {
+                                    <form method="post" action="/Historial/EliminarRecord" style="display:inline;">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" style="background: none; border: none; color: red; font-size: 18px; cursor: pointer; font-weight: bold;" title="Eliminar este récord">X</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="padding: 10px; text-align: center; color: gray;">
+                            No hay registros todavía. ¡Juega una partida!
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

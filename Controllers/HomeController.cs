@@ -1,40 +1,44 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using pryLPWeb_DisTerminal.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using pryLPWeb_DisTerminal.Data;
-using System;
-using System.Linq;
+using pryLPWeb_DisTerminal.Models;
 
-namespace pryLPWeb_DisTerminal.Pages
+namespace pryLPWeb_DisTerminal.Controllers
 {
-    public class IndexModel : PageModel
+    public class HomeController : Controller
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly TerminalDbContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger, TerminalDbContext context)
+        public HomeController(TerminalDbContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
-        
-        public void OnGet()
+        [HttpGet]
+        public IActionResult Index()
         {
             Response.Cookies.Delete("Jugador");
             Response.Cookies.Delete("UbicacionEstrella");
             Response.Cookies.Delete("EstrellaEncontrada");
+            return View();
         }
 
-        
-        public IActionResult OnPost(string Username)
+        [HttpPost]
+        public IActionResult Index(string Username)
         {
-
             if (!string.IsNullOrEmpty(Username))
             {
-
                 var jugadorDB = _context.Jugadores.FirstOrDefault(j => j.NombreUsuario == Username);
-                if (jugadorDB == null)
+
+                if (jugadorDB != null)
+                {
+                    if (Username != "admin963")
+                    {
+                        ViewBag.Error = "Ese nombre de usuario ya esta en uso. Porfavor, elige otro.";
+                        return View();
+                    }
+                    
+                }
+                else
                 {
                     jugadorDB = new Jugador
                     {
@@ -46,19 +50,13 @@ namespace pryLPWeb_DisTerminal.Pages
                 }
 
                 Response.Cookies.Append("Jugador", Username);
-
-                
                 var mecanica = new MecanicaJuego();
-                
                 Response.Cookies.Append("UbicacionEstrella", mecanica.EsconderEstrella());
-                
                 Response.Cookies.Append("EstrellaEncontrada", "false");
-                
-                return RedirectToPage("/Juego");
 
+                return RedirectToAction("Index", "Juego");
             }
-            
-            return Page();
+            return View();
         }
     }
 }
