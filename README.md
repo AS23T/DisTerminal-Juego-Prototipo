@@ -318,23 +318,19 @@ Vid
 
 ## Posibles mejoras futuras
 
-- Múltiples niveles.
-
-- Directorios falsos adicionales.
+- Mas directorios y subcarpetas falsos.
 
 - Sistema de puntuación.
 
 - Ranking global.
 
-- Modo contrarreloj.
+- Easter Eggs.
 
-- Logros desbloqueables.
+- Actualizaciones de temas visuales.
 
-- Temas visuales.
+- Sonidos ambiente retro de terminal.
 
-- Sonidos retro de terminal.
-
-- Sistema multijugador.
+- Múltiples niveles.
 
 ---
 
