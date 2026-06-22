@@ -36,7 +36,7 @@ disterminal-juego-prototipo-production.up.railway.app
 
 Los sistemas de almacenamiento galácticos han sufrido una anomalía.
 
-Una antigua entidad conocida como \*\*La Estrella\*\* ha sido ocultada dentro de una red de directorios digitales.
+Una antigua entidad conocida como La Estrella ha sido ocultada dentro de una red de directorios digitales.
 
 Miles de exploradores han intentado encontrarla.
 
