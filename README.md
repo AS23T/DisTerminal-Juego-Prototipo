@@ -26,9 +26,7 @@ Versión Online
 
 Enlace al prototipo:
 
-```
-disterminal-juego-prototipo-production.up.railway.app
-```
+Visita aqui 👉 [DisTerminal](disterminal-juego-prototipo-production.up.railway.app) para jugar.
 
 ---
 
