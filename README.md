@@ -35,13 +35,9 @@ disterminal-juego-prototipo-production.up.railway.app
 ## Historia
 
 Los sistemas de almacenamiento galácticos han sufrido una anomalía.
-
 Una antigua entidad conocida como La Estrella ha sido ocultada dentro de una red de directorios digitales.
-
 Miles de exploradores han intentado encontrarla.
-
 Pocos lo han logrado.
-
 Tu misión es navegar por los directorios permitidos y descubrir dónde se encuentra antes que nadie.
 
 ---
@@ -67,7 +63,7 @@ El juego utiliza una sintaxis específica para moverse.
 Formato:
 
 ```
-Usuario/Viajar/\[Directorio]
+Usuario/Viajar/[Directorio]
 ```
 
 Ejemplo:
@@ -179,7 +175,7 @@ Este usuario posee privilegios administrativos para la gestión global de regist
 ## Estructura del proyecto (lo mas importante)
 
 ```
-pryLPWeb\_DisTerminal
+pryLPWeb\DisTerminal
 
 │
 ├── Controllers
@@ -399,8 +395,7 @@ Este proyecto fue desarrollado como práctica de:
 ## ⭐ Reflexión final
 
 DisTerminal demuestra que no hacen falta gráficos hiperrealistas ni motores de última generación para crear una experiencia interactiva.
-
-A veces basta con una terminal, unos cuantos directorios y una estrella escondida esperando ser encontrada.
+A veces basta con mecanicas simples pero divertidas.
 
 ---
 
@@ -411,4 +406,3 @@ A veces basta con una terminal, unos cuantos directorios y una estrella escondid
 ```
 
 # ⭐
-
