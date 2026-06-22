@@ -26,7 +26,9 @@ Versión Online
 
 Enlace al prototipo:
 
-👉 disterminal-juego-prototipo-production.up.railway.app
+```
+disterminal-juego-prototipo-production.up.railway.app
+```
 
 ---
 
@@ -66,7 +68,6 @@ Formato:
 
 ```
 Usuario/Viajar/\[Directorio]
-
 ```
 
 Ejemplo:
@@ -341,15 +342,11 @@ Vid
 
 ### Pantalla de Inicio
 
-<p align="center">
-	<img src="assets/GameConcept1.png" alt="Imagen de login" width="300"/>
-</p>
+- 
 
 ### Terminal de Juego
 
-<p align="center">
-	<img src="assets/GameConcept.png" alt="Imagen secundaria del inicio" width="300"/>
-</p>
+- 
 
 ---
 
