@@ -392,7 +392,7 @@ Este proyecto fue desarrollado como práctica de:
 
 ---
 
-## ⭐ Reflexión final
+## Reflexión final
 
 DisTerminal demuestra que no hacen falta gráficos hiperrealistas ni motores de última generación para crear una experiencia interactiva.
 A veces basta con mecanicas simples pero divertidas.
