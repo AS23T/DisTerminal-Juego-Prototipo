@@ -343,13 +343,13 @@ Vid
 ### Pantalla de Inicio
 
 <p align="center">
-  <img src="assets/GameConcept1.png" alt="Imagen de login" width="300"/>
+  <img src="DisTerminal-Juego-Prototipo/assets/GameConcept1.png" alt="Imagen de login" width="300"/>
 </p>
 
 ### Terminal de Juego
 
 <p align="center">
-  <img src="assets/GameConcept.png" alt="Imagen secundaria del inicio" width="300"/>
+  <img src="DisTerminal-Juego-Prototipo/assets/GameConcept.png" alt="Imagen secundaria del inicio" width="300"/>
 </p>
 
 ---
