@@ -30,16 +30,6 @@ Visita aquí 👉 <https://disterminal-juego-prototipo-production.up.railway.app
 
 ---
 
-## Historia
-
-Los sistemas de almacenamiento galácticos han sufrido una anomalía.
-Una antigua entidad conocida como La Estrella ha sido ocultada dentro de una red de directorios digitales.
-Miles de exploradores han intentado encontrarla.
-Pocos lo han logrado.
-Tu misión es navegar por los directorios permitidos y descubrir dónde se encuentra antes que nadie.
-
----
-
 ## Cómo jugar
 
 1. Crear sesión
