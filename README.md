@@ -1,7 +1,5 @@
 # DisTerminal
 
-"No todos los héroes empuñan espadas. Algunos escriben comandos en una terminal."
-
 ## ¿Qué es DisTerminal? 
 
 [DisTerminal] es un prototipo de videojuego web desarrollado con ASP.NET Core MVC, Razor Pages, Entity Framework Core y SQLite, donde el jugador debe localizar una misteriosa ⭐ ESTRELLA escondida dentro de un sistema de directorios virtual.
