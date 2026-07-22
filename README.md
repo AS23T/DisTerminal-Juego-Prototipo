@@ -20,16 +20,6 @@
 
 ---
 
-## Jugar ahora
-
-Versión Online
-
-Enlace al prototipo:
-
-Visita aquí 👉 <https://disterminal-juego-prototipo-production.up.railway.app> para jugar.
-
----
-
 ## Cómo jugar
 
 1. Crear sesión
